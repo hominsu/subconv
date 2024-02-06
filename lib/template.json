@@ -138,6 +138,8 @@
   "outbounds": [],
   "route": {
     "auto_detect_interface": true,
+    "final": "节点选择",
+    "find_process": true,
     "rules": [
       {
         "rule_set": "geosite-category-ads-all",
@@ -156,85 +158,71 @@
         "outbound": "节点选择"
       },
       {
-        "process_name": [
-          "TencentMeeting",
-          "NemoDesktop",
-          "ToDesk",
-          "ToDesk_Service",
-          "WeChat",
-          "OpenLens",
-          "Tailscale",
-          "wireguard-go",
-          "Tunnelblick",
-          "softwareupdated",
-          "kubectl"
-        ],
-        "outbound": "direct"
+        "rule_set": "geosite-netflix",
+        "outbound": "Netflix"
       },
       {
-        "rule_set": [
-          "WeChat",
-          "Bilibili"
-        ],
-        "outbound": "direct"
-      },
-      {
-        "ip_is_private": true,
-        "outbound": "direct"
-      },
-      {
-        "domain_suffix": [
-          "openai.com",
-          "oaistatic.com",
-          "oaiusercontent.com",
-          "claude.ai",
-          "bard.google.com"
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "rule_set": "geosite-bing"
+          },
+          {
+            "rule_set": "geosite-openai"
+          },
+          {
+            "package_name": "com.openai.chatgpt"
+          },
+          {
+            "domain_suffix": [
+              "openai.com",
+              "oaistatic.com",
+              "oaiusercontent.com",
+              "claude.ai",
+              "bard.google.com"
+            ]
+          }
         ],
         "outbound": "OPENAi"
       },
       {
-        "rule_set": "geosite-openai",
-        "outbound": "OPENAi"
-      },
-      {
-        "package_name": "com.openai.chatgpt",
-        "outbound": "OPENAi"
-      },
-      {
-        "domain_suffix": [
-          ".cn",
-          ".bilibili.com",
-          ".qq.com",
-          ".taobao.com",
-          ".jd.com",
-          ".baidu.com",
-          ".onetcdn.com",
-          ".163.com",
-          "cdn.jsdelivr.net"
-        ],
-        "outbound": "direct"
-      },
-      {
-        "rule_set": "geoip-cn",
-        "outbound": "direct"
-      },
-      {
-        "rule_set": "geosite-cn",
+        "rule_set": "geosite-apple",
         "outbound": "direct"
       },
       {
         "type": "logical",
-        "mode": "and",
+        "mode": "or",
         "rules": [
           {
-            "rule_set": "geosite-geolocation-!cn"
+            "process_name": [
+              "TencentMeeting",
+              "NemoDesktop",
+              "ToDesk",
+              "ToDesk_Service",
+              "WeChat",
+              "OpenLens",
+              "Tailscale",
+              "wireguard-go",
+              "Tunnelblick",
+              "softwareupdated",
+              "kubectl"
+            ]
           },
           {
-            "rule_set": "geoip-cn",
-            "invert": true
+            "ip_is_private": true
+          },
+          {
+            "rule_set": "geoip-cn"
+          },
+          {
+            "rule_set": "geosite-cn"
+          },
+          {
+            "rule_set": "geosite-geolocation-cn"
           }
         ],
-        "outbound": "节点选择"
+        "outbound": "direct"
       }
     ],
     "rule_set": [
@@ -253,6 +241,27 @@
         "download_detour": "节点选择"
       },
       {
+        "tag": "geosite-netflix",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-netflix.srs",
+        "download_detour": "节点选择"
+      },
+      {
+        "tag": "geosite-apple",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-apple.srs",
+        "download_detour": "节点选择"
+      },
+      {
+        "tag": "geosite-bing",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-bing.srs",
+        "download_detour": "节点选择"
+      },
+      {
         "tag": "geosite-openai",
         "type": "remote",
         "format": "binary",
@@ -260,10 +269,10 @@
         "download_detour": "节点选择"
       },
       {
-        "tag": "geosite-geolocation-!cn",
+        "tag": "geosite-geolocation-cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-!cn.srs",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-cn.srs",
         "download_detour": "节点选择"
       },
       {
@@ -271,20 +280,6 @@
         "type": "remote",
         "format": "binary",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ads-all.srs",
-        "download_detour": "节点选择"
-      },
-      {
-        "tag": "WeChat",
-        "type": "remote",
-        "format": "source",
-        "url": "https://raw.githubusercontent.com/yangchuansheng/sing-box-geosite/main/rule/WeChat.json",
-        "download_detour": "节点选择"
-      },
-      {
-        "tag": "Bilibili",
-        "type": "remote",
-        "format": "source",
-        "url": "https://raw.githubusercontent.com/yangchuansheng/sing-box-geosite/main/rule/Bilibili.json",
         "download_detour": "节点选择"
       }
     ]
