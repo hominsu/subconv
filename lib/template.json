@@ -60,6 +60,7 @@
       {
         "domain_suffix": [
           "hauhau.cn",
+          "um.edu.mo",
           "cdn.jsdelivr.net"
         ],
         "server": "local"
@@ -158,33 +159,10 @@
         "outbound": "节点选择"
       },
       {
-        "rule_set": "geosite-netflix",
-        "outbound": "Netflix"
-      },
-      {
-        "type": "logical",
-        "mode": "or",
-        "rules": [
-          {
-            "rule_set": "geosite-bing"
-          },
-          {
-            "rule_set": "geosite-openai"
-          },
-          {
-            "package_name": "com.openai.chatgpt"
-          },
-          {
-            "domain_suffix": [
-              "openai.com",
-              "oaistatic.com",
-              "oaiusercontent.com",
-              "claude.ai",
-              "bard.google.com"
-            ]
-          }
+        "domain_suffix": [
+          "um.edu.mo"
         ],
-        "outbound": "OPENAi"
+        "outbound": "direct"
       },
       {
         "rule_set": "geosite-apple",
@@ -223,6 +201,35 @@
           }
         ],
         "outbound": "direct"
+      },
+      {
+        "rule_set": "geosite-netflix",
+        "outbound": "Netflix"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "rule_set": "geosite-bing"
+          },
+          {
+            "rule_set": "geosite-openai"
+          },
+          {
+            "package_name": "com.openai.chatgpt"
+          },
+          {
+            "domain_suffix": [
+              "openai.com",
+              "oaistatic.com",
+              "oaiusercontent.com",
+              "claude.ai",
+              "bard.google.com"
+            ]
+          }
+        ],
+        "outbound": "OPENAi"
       }
     ],
     "rule_set": [
